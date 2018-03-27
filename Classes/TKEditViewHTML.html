@@ -1,0 +1,74 @@
+<html style="height: 100%;margin: 0px;padding: 0px;">
+    <head>
+        <script type="text/javascript">
+            function setBold(isBold){
+                var node = getCurrentNode();
+                if(node.nodeType==3){
+                    var sty = node.parentNode.style;
+                    if(isBold){sty.fontWeight = "bold";}else{sty.fontWeight = "normal"};
+                }
+            }
+        function setFontSize(size){
+            var node = getCurrentNode();
+            if(node.nodeType==3){
+                var sty = node.parentNode.style;
+                sty.fontSize = size;
+            }
+            
+        }
+        function setItatic(isItatic){
+            var node = getCurrentNode();
+            if(node.nodeType==3){
+                var sty = node.parentNode.style;
+                if(isItatic){sty.fontStyle = "italic";}else{sty.fontStyle = "normal"};
+            }
+        }
+        function setColor(r,g,b){
+            var node = getCurrentNode();
+            if(node.nodeType==3){
+                var sty = node.parentNode.style;
+                sty.color = 'rgb('+r+','+g+','+b+')';
+            }
+        }
+        function addImage(fullPath){
+            var ifr = document.getElementById("editor");
+            var doc = ifr.contentDocument;
+            var body = doc.getElementById("content");
+            var img =  doc.createElement('img');
+            img.src = fullPath;
+            img.style.display = 'block';
+            img.style.margin = 'auto';
+            body.appendChild(img);
+        }
+        function getCurrentNode(){
+            var ifr = document.getElementById("editor");
+            var node = ifr.contentDocument.getSelection().baseNode;
+            return node;
+        }
+        </script>
+    </head>
+    <body style="margin: 0px;padding: 0px;height: 99%">
+        <iframe
+            id="editor"
+            width="100%"
+            height="100%"
+            style="border:solid 0px;margin:0px;padding:0px"
+            contentEditable='true'
+            designMode='on'>
+        </iframe>
+        <script
+            language="javascript"
+            type="text/javascript">
+            (function init() {
+             var ifr = document.getElementById("editor");
+             var doc = ifr.contentDocument || ifr.contentWindow.document; // W3C || IE
+             doc.designMode="on";
+             doc.contentEditable = true;
+             doc.open();
+             doc.write('<html><head><style>body{margin:0px;padding:0px; word-wrap:break-word; word-break: break-all; }</style></head><body id="content"><div>开始编辑</div></body></html>');
+             doc.close();
+             })();
+            </script>
+    </body>
+</html>
+
